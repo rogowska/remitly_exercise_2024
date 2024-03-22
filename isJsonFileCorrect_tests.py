@@ -49,7 +49,7 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.assertFalse(isJsonFileCorrect(self.singleAsterisk))
 
     def testEmptyResouceField(self):
-        self.assertTrue(isJsonFileCorrect(self.singleAsterisk))
+        self.assertTrue(isJsonFileCorrect(self.singleAsterisk)) # nie skonczone, brak dokumentow
 
     def testMultipleAsterisksInResourceField(self):
         self.assertTrue(isJsonFileCorrect(self.singleAsterisk)) # nie skonczone, brak dokumentow
