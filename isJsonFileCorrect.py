@@ -22,6 +22,9 @@ def isJsonFileCorrect(jsonFile):
         if not isinstance(jsonFile["PolicyDocument"], dict):
             raise Exception('field "PolicyDocument" has no JSON type')
 
+        if "Resource" not in jsonFile["PolicyDocument"]["Statement"][0]:
+            raise Exception('file has no field "Resource"')
+
         if jsonFile["PolicyDocument"]["Statement"][0]["Resource"] == "*":
             return False
         else:

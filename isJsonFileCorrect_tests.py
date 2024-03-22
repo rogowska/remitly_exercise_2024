@@ -43,16 +43,18 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
             isJsonFileCorrect(self.policyDocumentWrongType)
         self.assertTrue('field "PolicyDocument" has no JSON type' in str(context.exception))
 
+    def testResourceFieldMissing(self): pass
+
     def testSingleAsteriskInResourceField(self):
         self.assertFalse(isJsonFileCorrect(self.singleAsterisk))
 
     def testEmptyResouceField(self):
-        self.assertTrue(isJsonFileCorrect(self.singleAsterisk)) # ???? jak traktowac puste pole
+        self.assertTrue(isJsonFileCorrect(self.singleAsterisk))
 
     def testMultipleAsterisksInResourceField(self):
         self.assertTrue(isJsonFileCorrect(self.singleAsterisk)) # nie skonczone, brak dokumentow
 
-    def testCorrectJsonFileWithProperlyFilledFields(self):
+    def testOtherTextInResourceField(self):
         self.assertTrue(isJsonFileCorrect(self.singleAsterisk)) # nie skonczone, brak dokumentow
 
     def tearDown(self):
