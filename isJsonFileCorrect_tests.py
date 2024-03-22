@@ -10,31 +10,50 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.isNotJson = open("isNotJson.txt", "r")
         self.noPolicyName = open("noPolicyName.json", "r")
         self.noPolicyDocument = open("noPolicyDocument.json", "r")
+        self.policyNameWrongType = open("policyNameWrongType.json", "r")
+        self.policyDocumentWrongType = open("policyDocumentWrongType.json", "r")
 
-    def NotJsonTypeFile(self):
+    def testNotJsonTypeFile(self):
         with self.assertRaises(Exception) as context:
             isJsonFileCorrect(self.isNotJson)
         self.assertTrue('file passed to function isJsonCorrect had no JSON type' in str(context.exception))
 
-    def PolicyNameFieldMissing(self):
+    def testPolicyNameFieldMissing(self):
         with self.assertRaises(Exception) as context:
             isJsonFileCorrect(self.noPolicyName)
         self.assertTrue('file has no field "PolicyName"' in str(context.exception))
 
-    def PolicyDocumentFieldMissing(self): pass
+    def testPolicyDocumentFieldMissing(self):
+        with self.assertRaises(Exception) as context:
+            isJsonFileCorrect(self.noPolicyDocument)
+        self.assertTrue('file has no field "PolicyDocument"' in str(context.exception))
 
-    def WrongPolicyNameFieldType(self): pass
+    def testWrongPolicyNameFieldType(self):
+        with self.assertRaises(Exception) as context:
+            isJsonFileCorrect(self.policyNameWrongType)
+        self.assertTrue('field "PolicyName" has no string type"' in str(context.exception))
 
-    def WrongPolicyDocumentFieldType(self): pass
+    def testWrongPolicyDocumentFieldType(self):
+        with self.assertRaises(Exception) as context:
+            isJsonFileCorrect(self.policyDocumentWrongType)
+        self.assertTrue('field "PolicyDocument" has no JSON type"' in str(context.exception))
 
-    def EmptyResouceField(self): pass
+    def testEmptyResouceField(self): pass
 
-    def SingleAsteriskInResourceField(self):
+    def testSingleAsteriskInResourceField(self):
         assert isJsonFileCorrect(self.singleAsterisk) == False
 
-    def MultipleAsterisksInResourceField(self): pass
+    def testMultipleAsterisksInResourceField(self): pass
 
-    def CorrectJsonFileWithProperlyFilledFields(self): pass
+    def testCorrectJsonFileWithProperlyFilledFields(self): pass
+
+    def tearDown(self):
+        self.singleAsterisk.close()
+        self.isNotJson.close()
+        self.noPolicyName.close()
+        self.noPolicyDocument.close()
+        self.policyNameWrongType .close()
+        self.policyDocumentWrongType.close()
 
 
 if __name__ == '__main__':

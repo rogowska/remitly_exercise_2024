@@ -19,6 +19,8 @@ def isJsonFileCorrect(jsonFile):
         if not isinstance(jsonFile["PolicyDocument"], dict):
             raise Exception('field "PolicyDocument" has no JSON type"')
 
+        return False
+
     except JSONDecodeError as e:
         raise Exception('file passed to function isJsonCorrect() has no JSON type') from e
 
@@ -27,4 +29,3 @@ def isJsonFileCorrect(jsonFile):
     # do these fields have certain types OK
     # is resource present
     # verification - does it contain single asterisk or smth else FALSE TRUE
-    return False
