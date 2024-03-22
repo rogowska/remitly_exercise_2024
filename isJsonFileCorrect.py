@@ -4,7 +4,7 @@ from json import JSONDecodeError
 
 def isJsonFileCorrect(jsonFile):
     try:
-        #trying parsing json from a file
+        # trying parsing json from a file
         jsonFile = json.load(jsonFile)
 
         if "PolicyName" not in jsonFile:
@@ -14,18 +14,18 @@ def isJsonFileCorrect(jsonFile):
             raise Exception('file has no field "PolicyDocument"')
 
         if not isinstance(jsonFile["PolicyName"], str):
-            raise Exception('field "PolicyName" has no string type"')
+            raise Exception('field "PolicyName" has no string type')
+
+        if len(jsonFile["PolicyName"]) > 128:
+            raise Exception('field "PolicyName" has reached length limit of 128')
 
         if not isinstance(jsonFile["PolicyDocument"], dict):
-            raise Exception('field "PolicyDocument" has no JSON type"')
+            raise Exception('field "PolicyDocument" has no JSON type')
 
-        return False
+        if jsonFile["PolicyDocument"]["Statement"][0]["Resource"] == "*":
+            return False
+        else:
+            return True
 
     except JSONDecodeError as e:
         raise Exception('file passed to function isJsonCorrect() has no JSON type') from e
-
-    # was json file passed as argument OK
-    # does it has 2 fields OK
-    # do these fields have certain types OK
-    # is resource present
-    # verification - does it contain single asterisk or smth else FALSE TRUE

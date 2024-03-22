@@ -1,4 +1,3 @@
-from json import JSONDecodeError
 import unittest
 from isJsonFileCorrect import isJsonFileCorrect
 
@@ -12,11 +11,12 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.noPolicyDocument = open("noPolicyDocument.json", "r")
         self.policyNameWrongType = open("policyNameWrongType.json", "r")
         self.policyDocumentWrongType = open("policyDocumentWrongType.json", "r")
+        self.policyNameLengthLimit = open("policyNameLengthLimit.json", "r")
 
     def testNotJsonTypeFile(self):
         with self.assertRaises(Exception) as context:
             isJsonFileCorrect(self.isNotJson)
-        self.assertTrue('file passed to function isJsonCorrect had no JSON type' in str(context.exception))
+        self.assertTrue('file passed to function isJsonCorrect() has no JSON type' in str(context.exception))
 
     def testPolicyNameFieldMissing(self):
         with self.assertRaises(Exception) as context:
@@ -31,21 +31,29 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
     def testWrongPolicyNameFieldType(self):
         with self.assertRaises(Exception) as context:
             isJsonFileCorrect(self.policyNameWrongType)
-        self.assertTrue('field "PolicyName" has no string type"' in str(context.exception))
+        self.assertTrue('field "PolicyName" has no string type' in str(context.exception))
+
+    def testWrongLenghtOfPolicyName(self):
+        with self.assertRaises(Exception) as context:
+            isJsonFileCorrect(self.policyNameLengthLimit)
+        self.assertTrue('field "PolicyName" has reached length limit of 128' in str(context.exception))
 
     def testWrongPolicyDocumentFieldType(self):
         with self.assertRaises(Exception) as context:
             isJsonFileCorrect(self.policyDocumentWrongType)
-        self.assertTrue('field "PolicyDocument" has no JSON type"' in str(context.exception))
-
-    def testEmptyResouceField(self): pass
+        self.assertTrue('field "PolicyDocument" has no JSON type' in str(context.exception))
 
     def testSingleAsteriskInResourceField(self):
-        assert isJsonFileCorrect(self.singleAsterisk) == False
+        self.assertFalse(isJsonFileCorrect(self.singleAsterisk))
 
-    def testMultipleAsterisksInResourceField(self): pass
+    def testEmptyResouceField(self):
+        self.assertTrue(isJsonFileCorrect(self.singleAsterisk)) # ???? jak traktowac puste pole
 
-    def testCorrectJsonFileWithProperlyFilledFields(self): pass
+    def testMultipleAsterisksInResourceField(self):
+        self.assertTrue(isJsonFileCorrect(self.singleAsterisk)) # nie skonczone, brak dokumentow
+
+    def testCorrectJsonFileWithProperlyFilledFields(self):
+        self.assertTrue(isJsonFileCorrect(self.singleAsterisk)) # nie skonczone, brak dokumentow
 
     def tearDown(self):
         self.singleAsterisk.close()
@@ -54,6 +62,7 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.noPolicyDocument.close()
         self.policyNameWrongType .close()
         self.policyDocumentWrongType.close()
+        self.policyNameLengthLimit.close()
 
 
 if __name__ == '__main__':
