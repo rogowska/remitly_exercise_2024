@@ -17,6 +17,7 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.multipleAsterisks = open("tests/resources/multipleAsterisks.json", "r")
         self.emptyResourceField = open("tests/resources/emptyResourceField.json", "r")
         self.someTextInResourceField = open("tests/resources/someTextInResourceField.json", "r")
+        self.versionValueWrongFormat = open("tests/resources/versionValueWrongFormat.json", "r")
 
     def testNotJsonTypeFile(self):
         with self.assertRaises(Exception) as context:
@@ -54,7 +55,10 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
 
     def testWrongVersionFieldType(self): pass
 
-    def testWrongVersionFieldFormat(self): pass
+    def testWrongVersionFieldFormat(self):
+        with self.assertRaises(Exception) as context:
+            isJsonFileCorrect(self.versionValueWrongFormat)
+        self.assertTrue("Incorrect data format, should be YYYY-MM-DD" in str(context.exception))
 
     def testStatementFieldMissing(self): pass
 
@@ -101,6 +105,7 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.multipleAsterisks.close()
         self.emptyResourceField.close()
         self.someTextInResourceField.close()
+        self.versionValueWrongFormat.close()
 
 
 if __name__ == '__main__':
