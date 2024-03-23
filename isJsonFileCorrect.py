@@ -25,6 +25,9 @@ def isJsonFileCorrect(jsonFile):
         if "Resource" not in jsonFile["PolicyDocument"]["Statement"][0]:
             raise Exception('file has no field "Resource"')
 
+        if not isinstance(jsonFile["PolicyDocument"]["Statement"][0]["Resource"], str):
+            raise Exception('field "Resource" has no string type')
+
         if jsonFile["PolicyDocument"]["Statement"][0]["Resource"] == "*":
             return False
         else:
