@@ -43,20 +43,26 @@ def isJsonFileCorrect(jsonFile):
 
         statements_number = len(jsonFile["PolicyDocument"]["Statement"])
 
+        if statements_number < 1:
+            raise Exception('file has no statements')
+
         for i in range(statements_number):
 
             if "Sid" in jsonFile["PolicyDocument"]["Statement"][i]:
                 if not re.match(r"[a-zA-Z0-9]+", jsonFile["PolicyDocument"]["Statement"][i]["Sid"]):
                     raise Exception('value of field "Sid" does not match the pattern [a-zA-Z0-9]+'
-                                    ' in the' + str(i) + 'statement')
+                                    ' in the ' + str(i) + ' statement')
 
-            if (jsonFile["PolicyDocument"]["Statement"][i]["Effect"] != "Allow" or
+            if "Effect" not in jsonFile["PolicyDocument"]["Statement"][i]:
+                raise Exception('file has no field "Effect" in the ' + str(i) + ' statement')
+
+            if (jsonFile["PolicyDocument"]["Statement"][i]["Effect"] != "Allow" and
                     jsonFile["PolicyDocument"]["Statement"][i]["Effect"] != "Deny"):
                 raise Exception('value of field "Effect" is not equal either "Allow" or "Deny"'
-                                ' in the' + str(i) + 'statement')
+                                ' in the ' + str(i) + ' statement')
 
             if "Action" not in jsonFile["PolicyDocument"]["Statement"][i]:
-                raise Exception('file has no field "Statement" in the' + str(i) + 'statement')
+                raise Exception('file has no field "Action" in the' + str(i) + 'statement')
 
             if "Resource" not in jsonFile["PolicyDocument"]["Statement"][i]:
                 raise Exception('file has no field "Resource" in the' + str(i) + 'statement')
