@@ -5,6 +5,7 @@ from isJsonFileCorrect import isJsonFileCorrect
 class TestsIsJsonFileCorrect(unittest.TestCase):
 
     # opening all files on the beggining of tests and closing them on the end of them
+    @classmethod
     def setUpClass(self):
         self.isNotJson = open("resources/isNotJson.txt", "r")
 
@@ -34,6 +35,7 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.someTextInResourceField = open("resources/someTextInResourceField.json", "r")
         self.versionValueWrongFormat = open("resources/versionValueWrongFormat.json", "r")
         self.effectWrongValue = open("resources/effectWrongValue.json", "r")
+        self.noUniqueSids = open("resources/noUniqueSids.json", "r")
 
     def testNotJsonTypeFile(self):
         with self.assertRaises(Exception) as context:
@@ -146,8 +148,12 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.assertFalse(isJsonFileCorrect(self.multipleStatementsOneAsterisk))
         self.assertFalse(isJsonFileCorrect(self.multipleStatementsManyAsterisks))
 
-    def testDistingushSidsAmongStatements(self): pass
+    def testNoUniqueSidsAmongStatements(self):
+            with self.assertRaises(Exception) as context:
+                isJsonFileCorrect(self.noUniqueSids)
+            self.assertTrue('file has not unique sids' in str(context.exception))
 
+    @classmethod
     def tearDownClass(self):
         self.isNotJson.close()
 
@@ -177,6 +183,7 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.someTextInResourceField.close()
         self.versionValueWrongFormat.close()
         self.effectWrongValue.close()
+        self.noUniqueSids.close()
 
 
 if __name__ == '__main__':

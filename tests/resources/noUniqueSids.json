@@ -4,7 +4,7 @@
         "Version": "2012-10-17",
         "Statement": [
             {
-                "Sid": "IamListAccess",
+                "Sid": "IamListAccess1",
                 "Effect": "Allow",
                 "Action": [
                     "iam:ListRoles",
@@ -19,16 +19,16 @@
                     "iam:ListRoles",
                     "iam:ListUsers"
                 ],
-                "Resource": "ew"
+                "Resource": "*"
             },
           {
-                "Sid": "IamListAccess3",
+                "Sid": "IamListAccess2",
                 "Effect": "Allow",
                 "Action": [
                     "iam:ListRoles",
                     "iam:ListUsers"
                 ],
-                "Resource": "000"
+                "Resource": "***"
             }
         ]
     }

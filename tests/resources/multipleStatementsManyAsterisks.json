@@ -13,7 +13,7 @@
                 "Resource": "aw"
             },
           {
-                "Sid": "IamListAccess",
+                "Sid": "IamListAccess2",
                 "Effect": "Allow",
                 "Action": [
                     "iam:ListRoles",
@@ -22,7 +22,7 @@
                 "Resource": "*"
             },
           {
-                "Sid": "IamListAccess",
+                "Sid": "IamListAccess3",
                 "Effect": "Allow",
                 "Action": [
                     "iam:ListRoles",

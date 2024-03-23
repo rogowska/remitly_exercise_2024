@@ -4,6 +4,8 @@ import re
 
 
 def isJsonFileCorrect(jsonFile):
+    sids = set()
+    flag = True
     try:
         # trying parsing json from a file
         jsonFile = json.load(jsonFile)
@@ -52,6 +54,10 @@ def isJsonFileCorrect(jsonFile):
                 if not re.match(r"[a-zA-Z0-9]+", jsonFile["PolicyDocument"]["Statement"][i]["Sid"]):
                     raise Exception('value of field "Sid" does not match the pattern [a-zA-Z0-9]+'
                                     ' in the ' + str(i) + ' statement')
+                if jsonFile["PolicyDocument"]["Statement"][i]["Sid"] not in sids:
+                    sids.add(jsonFile["PolicyDocument"]["Statement"][i]["Sid"])
+                else:
+                    raise Exception('file has not unique sids')
 
             if "Effect" not in jsonFile["PolicyDocument"]["Statement"][i]:
                 raise Exception('file has no field "Effect" in the ' + str(i) + ' statement')
@@ -71,9 +77,9 @@ def isJsonFileCorrect(jsonFile):
                 raise Exception('field "Resource" has no string type in the ' + str(i) + ' statement')
 
             if jsonFile["PolicyDocument"]["Statement"][i]["Resource"] == "*":
-                return False
+                flag = False
 
-        return True
+        return flag
 
     except JSONDecodeError as e:
         raise Exception('file passed to function isJsonCorrect() has no JSON type') from e
