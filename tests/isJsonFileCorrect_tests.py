@@ -4,7 +4,8 @@ from isJsonFileCorrect import isJsonFileCorrect
 
 class TestsIsJsonFileCorrect(unittest.TestCase):
 
-    def setUp(self):
+    # opening all files on the beggining of tests and closing them on the end of them
+    def setUpClass(self):
         self.isNotJson = open("resources/isNotJson.txt", "r")
 
         self.noPolicyName = open("resources/noPolicyName.json", "r")
@@ -14,6 +15,7 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.noStatement = open("resources/noStatement.json", "r")
         self.noStatements = open("resources/noStatements.json", "r")
         self.noEffect = open("resources/noEffect.json", "r")
+        self.noAction = open("resources/noAction.json", "r")
 
         self.policyNameWrongType = open("resources/policyNameWrongType.json", "r")
         self.policyDocumentWrongType = open("resources/policyDocumentWrongType.json", "r")
@@ -25,6 +27,9 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.policyNameLengthLimit = open("resources/policyNameLengthLimit.json", "r")
         self.singleAsterisk = open("resources/singleAsterisk.json", "r")
         self.multipleAsterisks = open("resources/multipleAsterisks.json", "r")
+        self.multipleStatements = open("resources/multipleStatements.json", "r")
+        self.multipleStatementsOneAsterisk = open("resources/multipleStatementsOneAsterisk.json", "r")
+        self.multipleStatementsManyAsterisks = open("resources/multipleStatementsManyAsterisks.json", "r")
         self.emptyResourceField = open("resources/emptyResourceField.json", "r")
         self.someTextInResourceField = open("resources/someTextInResourceField.json", "r")
         self.versionValueWrongFormat = open("resources/versionValueWrongFormat.json", "r")
@@ -107,19 +112,22 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             isJsonFileCorrect(self.effectWrongValue)
         self.assertTrue('value of field "Effect" is not equal either "Allow" or "Deny"'
-                                ' in the 0 statement' in str(context.exception))
+                        ' in the 0 statement' in str(context.exception))
 
-    def testActionValueValidation(self): pass
+    def testActionFieldMissing(self):
+        with self.assertRaises(Exception) as context:
+            isJsonFileCorrect(self.noAction)
+        self.assertTrue('file has no field "Action" in the 0 statement' in str(context.exception))
 
     def testResourceFieldMissing(self):
         with self.assertRaises(Exception) as context:
             isJsonFileCorrect(self.noResource)
-        self.assertTrue('file has no field "Resource"' in str(context.exception))
+        self.assertTrue('file has no field "Resource" in the 0 statement' in str(context.exception))
 
     def testWrongResourceFieldType(self):
         with self.assertRaises(Exception) as context:
             isJsonFileCorrect(self.resourceWrongType)
-        self.assertTrue('field "Resource" has no string type' in str(context.exception))
+        self.assertTrue('field "Resource" has no string type in the 0 statement' in str(context.exception))
 
     def testSingleAsteriskInResourceField(self):
         self.assertFalse(isJsonFileCorrect(self.singleAsterisk))
@@ -133,11 +141,14 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
     def testSomeTextInResourceField(self):
         self.assertTrue(isJsonFileCorrect(self.someTextInResourceField))
 
-    def testMultipleStatements(self): pass
+    def testMultipleStatements(self):
+        self.assertTrue(isJsonFileCorrect(self.multipleStatements))
+        self.assertFalse(isJsonFileCorrect(self.multipleStatementsOneAsterisk))
+        self.assertFalse(isJsonFileCorrect(self.multipleStatementsManyAsterisks))
 
-    def testMultipleStatementsOneAsterisk(self): pass
+    def testDistingushSidsAmongStatements(self): pass
 
-    def tearDown(self):
+    def tearDownClass(self):
         self.isNotJson.close()
 
         self.noPolicyName.close()
@@ -147,8 +158,9 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.noStatement.close()
         self.noStatements.close()
         self.noEffect.close()
+        self.noAction.close()
 
-        self.policyNameWrongType .close()
+        self.policyNameWrongType.close()
         self.policyDocumentWrongType.close()
         self.versionWrongType.close()
         self.resourceWrongType.close()
@@ -158,6 +170,9 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.policyNameLengthLimit.close()
         self.singleAsterisk.close()
         self.multipleAsterisks.close()
+        self.multipleStatements.close()
+        self.multipleStatementsOneAsterisk.close()
+        self.multipleStatementsManyAsterisks.close()
         self.emptyResourceField.close()
         self.someTextInResourceField.close()
         self.versionValueWrongFormat.close()

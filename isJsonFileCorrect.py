@@ -62,13 +62,13 @@ def isJsonFileCorrect(jsonFile):
                                 ' in the ' + str(i) + ' statement')
 
             if "Action" not in jsonFile["PolicyDocument"]["Statement"][i]:
-                raise Exception('file has no field "Action" in the' + str(i) + 'statement')
+                raise Exception('file has no field "Action" in the ' + str(i) + ' statement')
 
             if "Resource" not in jsonFile["PolicyDocument"]["Statement"][i]:
-                raise Exception('file has no field "Resource" in the' + str(i) + 'statement')
+                raise Exception('file has no field "Resource" in the ' + str(i) + ' statement')
 
             if not isinstance(jsonFile["PolicyDocument"]["Statement"][i]["Resource"], str):
-                raise Exception('field "Resource" has no string type in the' + str(i) + 'statement')
+                raise Exception('field "Resource" has no string type in the ' + str(i) + ' statement')
 
             if jsonFile["PolicyDocument"]["Statement"][i]["Resource"] == "*":
                 return False
