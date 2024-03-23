@@ -1,7 +1,6 @@
 import json
 from json import JSONDecodeError
 import re
-import datetime
 
 
 def isJsonFileCorrect(jsonFile):
@@ -27,16 +26,20 @@ def isJsonFileCorrect(jsonFile):
         if not isinstance(jsonFile["PolicyDocument"], dict):
             raise Exception('field "PolicyDocument" has no JSON type')
 
-        if "Version" not in jsonFile["PolicyDocument"]['Version']:
+        if "Version" not in jsonFile["PolicyDocument"]:
             raise Exception('file has no field "Version"')
 
         if not isinstance(jsonFile["PolicyDocument"]['Version'], str):
             raise Exception('field "Version" has no string type')
 
-        datetime.date.fromisoformat(jsonFile["PolicyDocument"]['Version'])
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", jsonFile["PolicyDocument"]["Version"]):
+            raise Exception('value of field "Version" does not match the pattern YYYY-MM-DD')
 
-        #if not re.match(r"^\d{4}-\d{2}-\d{2}$", jsonFile["PolicyDocument"]['Version']):
-            #raise Exception('value of field "Version" does not match the pattern YYYY-MM-DD')
+        if "Statement" not in jsonFile["PolicyDocument"]:
+            raise Exception('file has no field "Statement"')
+
+        if not isinstance(jsonFile["PolicyDocument"]['Statement'], list):
+            raise Exception('field "Statement" is not a list')
 
         statements_number = len(jsonFile["PolicyDocument"]["Statement"])
 
@@ -44,25 +47,27 @@ def isJsonFileCorrect(jsonFile):
 
             if "Sid" in jsonFile["PolicyDocument"]["Statement"][i]:
                 if not re.match(r"[a-zA-Z0-9]+", jsonFile["PolicyDocument"]["Statement"][i]["Sid"]):
-                    raise Exception('value of field "Sid" does not match the pattern [a-zA-Z0-9]+')
+                    raise Exception('value of field "Sid" does not match the pattern [a-zA-Z0-9]+'
+                                    ' in the' + str(i) + 'statement')
 
-            if jsonFile["PolicyDocument"]["Statement"][i]["Effect"] != "Allow" or \
-                    jsonFile["PolicyDocument"]["Statement"][i]["Effect"] != "Deny":
-                raise Exception('value of field "Effect" is not equal either "Allow" or "Deny"')
-            # action
+            if (jsonFile["PolicyDocument"]["Statement"][i]["Effect"] != "Allow" or
+                    jsonFile["PolicyDocument"]["Statement"][i]["Effect"] != "Deny"):
+                raise Exception('value of field "Effect" is not equal either "Allow" or "Deny"'
+                                ' in the' + str(i) + 'statement')
 
-            if "Resource" not in jsonFile["PolicyDocument"]["Statement"][0]:
-                raise Exception('file has no field "Resource"')
+            if "Action" not in jsonFile["PolicyDocument"]["Statement"][i]:
+                raise Exception('file has no field "Statement" in the' + str(i) + 'statement')
 
-            if not isinstance(jsonFile["PolicyDocument"]["Statement"][0]["Resource"], str):
-                raise Exception('field "Resource" has no string type')
+            if "Resource" not in jsonFile["PolicyDocument"]["Statement"][i]:
+                raise Exception('file has no field "Resource" in the' + str(i) + 'statement')
 
-            if jsonFile["PolicyDocument"]["Statement"][0]["Resource"] == "*":
+            if not isinstance(jsonFile["PolicyDocument"]["Statement"][i]["Resource"], str):
+                raise Exception('field "Resource" has no string type in the' + str(i) + 'statement')
+
+            if jsonFile["PolicyDocument"]["Statement"][i]["Resource"] == "*":
                 return False
 
         return True
 
     except JSONDecodeError as e:
         raise Exception('file passed to function isJsonCorrect() has no JSON type') from e
-    except ValueError as e:
-        raise ValueError("Incorrect data format, should be YYYY-MM-DD") from e

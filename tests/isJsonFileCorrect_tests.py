@@ -5,19 +5,19 @@ from isJsonFileCorrect import isJsonFileCorrect
 class TestsIsJsonFileCorrect(unittest.TestCase):
 
     def setUp(self):
-        self.isNotJson = open("tests/resources/isNotJson.txt", "r")
-        self.noPolicyName = open("tests/resources/noPolicyName.json", "r")
-        self.noPolicyDocument = open("tests/resources/noPolicyDocument.json", "r")
-        self.noResource = open("tests/resources/noResource.json", "r")
-        self.policyNameWrongType = open("tests/resources/policyNameWrongType.json", "r")
-        self.policyDocumentWrongType = open("tests/resources/policyDocumentWrongType.json", "r")
-        self.resourceWrongType = open("tests/resources/resourceWrongType.json", "r")
-        self.policyNameLengthLimit = open("tests/resources/policyNameLengthLimit.json", "r")
-        self.singleAsterisk = open("tests/resources/singleAsterisk.json", "r")
-        self.multipleAsterisks = open("tests/resources/multipleAsterisks.json", "r")
-        self.emptyResourceField = open("tests/resources/emptyResourceField.json", "r")
-        self.someTextInResourceField = open("tests/resources/someTextInResourceField.json", "r")
-        self.versionValueWrongFormat = open("tests/resources/versionValueWrongFormat.json", "r")
+        self.isNotJson = open("resources/isNotJson.txt", "r")
+        self.noPolicyName = open("resources/noPolicyName.json", "r")
+        self.noPolicyDocument = open("resources/noPolicyDocument.json", "r")
+        self.noResource = open("resources/noResource.json", "r")
+        self.policyNameWrongType = open("resources/policyNameWrongType.json", "r")
+        self.policyDocumentWrongType = open("resources/policyDocumentWrongType.json", "r")
+        self.resourceWrongType = open("resources/resourceWrongType.json", "r")
+        self.policyNameLengthLimit = open("resources/policyNameLengthLimit.json", "r")
+        self.singleAsterisk = open("resources/singleAsterisk.json", "r")
+        self.multipleAsterisks = open("resources/multipleAsterisks.json", "r")
+        self.emptyResourceField = open("resources/emptyResourceField.json", "r")
+        self.someTextInResourceField = open("resources/someTextInResourceField.json", "r")
+        self.versionValueWrongFormat = open("resources/versionValueWrongFormat.json", "r")
 
     def testNotJsonTypeFile(self):
         with self.assertRaises(Exception) as context:
@@ -42,7 +42,7 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
     def testPolicyNameLengthValidation(self):
         with self.assertRaises(Exception) as context:
             isJsonFileCorrect(self.policyNameLengthLimit)
-        self.assertTrue('field "PolicyName" has lenght out of range 1-128' in str(context.exception))
+        self.assertTrue('field "PolicyName" has length out of range 1-128' in str(context.exception))
 
     def testPolicyNamePatternValidation(self): pass
 
@@ -58,7 +58,7 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
     def testWrongVersionFieldFormat(self):
         with self.assertRaises(Exception) as context:
             isJsonFileCorrect(self.versionValueWrongFormat)
-        self.assertTrue("Incorrect data format, should be YYYY-MM-DD" in str(context.exception))
+        self.assertTrue('value of field "Version" does not match the pattern YYYY-MM-DD' in str(context.exception))
 
     def testStatementFieldMissing(self): pass
 
@@ -91,6 +91,10 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
 
     def testSomeTextInResourceField(self):
         self.assertTrue(isJsonFileCorrect(self.someTextInResourceField))
+
+    def testMultipleStatements(self): pass
+
+    def testMultipleStatementsOneAsterisk(self): pass
 
     def tearDown(self):
         self.isNotJson.close()

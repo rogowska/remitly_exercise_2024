@@ -1,7 +1,7 @@
 {
     "PolicyName": "root",
     "PolicyDocument": {
-        "Version": "2012-10",
+        "Version": "20177777",
         "Statement": [
             {
                 "Sid": "IamListAccess",
