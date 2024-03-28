@@ -7,36 +7,37 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
     # opening all files on the beggining of tests and closing them on the end of them
 
     @classmethod
-    def setUpClass(self):
-        self.isNotJson = open("resources/isNotJson.txt", "r")
+    def setUpClass(cls):
+        cls.isNotJson = open("resources/isNotJson.txt", "r")
+        cls.noPolicyName = open("resources/noPolicyName.json", "r")
+        cls.noPolicyDocument = open("resources/noPolicyDocument.json", "r")
+        cls.noResource = open("resources/noResource.json", "r")
+        cls.noVersion = open("resources/noVersion.json", "r")
+        cls.noStatement = open("resources/noStatement.json", "r")
+        cls.noStatements = open("resources/noStatements.json", "r")
+        cls.noEffect = open("resources/noEffect.json", "r")
+        cls.noAction = open("resources/noAction.json", "r")
 
-        self.noPolicyName = open("resources/noPolicyName.json", "r")
-        self.noPolicyDocument = open("resources/noPolicyDocument.json", "r")
-        self.noResource = open("resources/noResource.json", "r")
-        self.noVersion = open("resources/noVersion.json", "r")
-        self.noStatement = open("resources/noStatement.json", "r")
-        self.noStatements = open("resources/noStatements.json", "r")
-        self.noEffect = open("resources/noEffect.json", "r")
-        self.noAction = open("resources/noAction.json", "r")
+        cls.policyNameWrongType = open("resources/policyNameWrongType.json", "r")
+        cls.policyDocumentWrongType = open("resources/policyDocumentWrongType.json", "r")
+        cls.policyNameWrongPattern = open("resources/policyNameWrongPattern.json", "r")
 
-        self.policyNameWrongType = open("resources/policyNameWrongType.json", "r")
-        self.policyDocumentWrongType = open("resources/policyDocumentWrongType.json", "r")
-        self.versionWrongType = open("resources/versionWrongType.json", "r")
-        self.resourceWrongType = open("resources/resourceWrongType.json", "r")
-        self.statementWrongType = open("resources/statementWrongType.json", "r")
+        cls.versionWrongType = open("resources/versionWrongType.json", "r")
+        cls.resourceWrongType = open("resources/resourceWrongType.json", "r")
+        cls.statementWrongType = open("resources/statementWrongType.json", "r")
 
-        self.sidWrongPattern = open("resources/sidWrongPattern.json", "r")
-        self.policyNameLengthLimit = open("resources/policyNameLengthLimit.json", "r")
-        self.singleAsterisk = open("resources/singleAsterisk.json", "r")
-        self.multipleAsterisks = open("resources/multipleAsterisks.json", "r")
-        self.multipleStatements = open("resources/multipleStatements.json", "r")
-        self.multipleStatementsOneAsterisk = open("resources/multipleStatementsOneAsterisk.json", "r")
-        self.multipleStatementsManyAsterisks = open("resources/multipleStatementsManyAsterisks.json", "r")
-        self.emptyResourceField = open("resources/emptyResourceField.json", "r")
-        self.someTextInResourceField = open("resources/someTextInResourceField.json", "r")
-        self.versionValueWrongFormat = open("resources/versionValueWrongFormat.json", "r")
-        self.effectWrongValue = open("resources/effectWrongValue.json", "r")
-        self.noUniqueSids = open("resources/noUniqueSids.json", "r")
+        cls.sidWrongPattern = open("resources/sidWrongPattern.json", "r")
+        cls.policyNameLengthLimit = open("resources/policyNameLengthLimit.json", "r")
+        cls.singleAsterisk = open("resources/singleAsterisk.json", "r")
+        cls.multipleAsterisks = open("resources/multipleAsterisks.json", "r")
+        cls.multipleStatements = open("resources/multipleStatements.json", "r")
+        cls.multipleStatementsOneAsterisk = open("resources/multipleStatementsOneAsterisk.json", "r")
+        cls.multipleStatementsManyAsterisks = open("resources/multipleStatementsManyAsterisks.json", "r")
+        cls.emptyResourceField = open("resources/emptyResourceField.json", "r")
+        cls.someTextInResourceField = open("resources/someTextInResourceField.json", "r")
+        cls.versionValueWrongFormat = open("resources/versionValueWrongFormat.json", "r")
+        cls.effectWrongValue = open("resources/effectWrongValue.json", "r")
+        cls.noUniqueSids = open("resources/noUniqueSids.json", "r")
 
     def testNotJsonTypeFile(self):
         with self.assertRaises(Exception) as context:
@@ -63,7 +64,10 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
             isJsonFileCorrect(self.policyNameLengthLimit)
         self.assertTrue('field "PolicyName" has length out of range 1-128' in str(context.exception))
 
-    def testPolicyNamePatternValidation(self): pass
+    def testPolicyNamePatternValidation(self):
+        with self.assertRaises(Exception) as context:
+            isJsonFileCorrect(self.policyNameWrongPattern)
+        self.assertTrue('value of field "PolicyName" does not match the pattern [\\w+=,.@-]+' in str(context.exception))
 
     def testWrongPolicyDocumentFieldType(self):
         with self.assertRaises(Exception) as context:
@@ -155,36 +159,37 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
             self.assertTrue('file has not unique sids' in str(context.exception))
 
     @classmethod
-    def tearDownClass(self):
-        self.isNotJson.close()
+    def tearDownClass(cls):
+        cls.isNotJson.close()
 
-        self.noPolicyName.close()
-        self.noPolicyDocument.close()
-        self.noResource.close()
-        self.noVersion.close()
-        self.noStatement.close()
-        self.noStatements.close()
-        self.noEffect.close()
-        self.noAction.close()
+        cls.noPolicyName.close()
+        cls.noPolicyDocument.close()
+        cls.noResource.close()
+        cls.noVersion.close()
+        cls.noStatement.close()
+        cls.noStatements.close()
+        cls.noEffect.close()
+        cls.noAction.close()
 
-        self.policyNameWrongType.close()
-        self.policyDocumentWrongType.close()
-        self.versionWrongType.close()
-        self.resourceWrongType.close()
-        self.statementWrongType.close()
+        cls.policyNameWrongType.close()
+        cls.policyDocumentWrongType.close()
+        cls.versionWrongType.close()
+        cls.resourceWrongType.close()
+        cls.statementWrongType.close()
 
-        self.sidWrongPattern.close()
-        self.policyNameLengthLimit.close()
-        self.singleAsterisk.close()
-        self.multipleAsterisks.close()
-        self.multipleStatements.close()
-        self.multipleStatementsOneAsterisk.close()
-        self.multipleStatementsManyAsterisks.close()
-        self.emptyResourceField.close()
-        self.someTextInResourceField.close()
-        self.versionValueWrongFormat.close()
-        self.effectWrongValue.close()
-        self.noUniqueSids.close()
+        cls.sidWrongPattern.close()
+        cls.policyNameLengthLimit.close()
+        cls.singleAsterisk.close()
+        cls.multipleAsterisks.close()
+        cls.multipleStatements.close()
+        cls.multipleStatementsOneAsterisk.close()
+        cls.multipleStatementsManyAsterisks.close()
+        cls.emptyResourceField.close()
+        cls.someTextInResourceField.close()
+        cls.versionValueWrongFormat.close()
+        cls.effectWrongValue.close()
+        cls.noUniqueSids.close()
+        cls.policyNameWrongPattern.close()
 
 
 if __name__ == '__main__':
