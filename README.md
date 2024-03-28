@@ -35,7 +35,9 @@ Solution contains two files:
 
 isJsonFileCorrect.py contains a method checking wether the file passed to this method is a valid JSON file.
 
-File isJsonFileCorrect_tests_py contains all the unit tests written with the help of unittest python library. Covered tests cases are:
+File isJsonFileCorrect_tests_py contains all the unit tests written with the help of unittest python library.
+
+### Covered tests cases are:
 
 1. Checking if the file parameter is JSON.
 2. Checking if the JSON file has PolicyName field.
@@ -46,7 +48,7 @@ File isJsonFileCorrect_tests_py contains all the unit tests written with the hel
 7. Checking if PolicyName has valid pattern.
 
 
-    Within PolicyDocument scope:
+#### Within PolicyDocument scope:
 
 8. Checking if file has Version field.
 9. Checking if file has Statement field.
@@ -54,7 +56,7 @@ File isJsonFileCorrect_tests_py contains all the unit tests written with the hel
 11. Checking if Version field has certain format.
 12. Checking if Statement field has certain type.
 
-    Within Statement scope:
+#### Within Statement scope:
 
 13. Checking if there is at least one statement.
 14. Checking if Sid pattern is correct. 
