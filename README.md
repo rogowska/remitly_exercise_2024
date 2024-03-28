@@ -68,6 +68,8 @@ File isJsonFileCorrect_tests_py contains all the unit tests written with the hel
 20. Checking if in the case of multiple statements, they all have unique Sids.
 
 Remaining tests check wether function returns correctly "True" or "False" in the case of the correctly formatted file.
+Resources directory contains all the files required to run test cases. Files can be changed in the setUpClass in the test file.
+
 ## Technologies
 
 * Python 3.10.11
