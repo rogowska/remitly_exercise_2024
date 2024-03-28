@@ -8,6 +8,7 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        cls.notReadMode = open("resources/isNotJson.txt", "w")
         cls.isNotJson = open("resources/isNotJson.txt", "r")
         cls.noPolicyName = open("resources/noPolicyName.json", "r")
         cls.noPolicyDocument = open("resources/noPolicyDocument.json", "r")
@@ -38,6 +39,11 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         cls.versionValueWrongFormat = open("resources/versionValueWrongFormat.json", "r")
         cls.effectWrongValue = open("resources/effectWrongValue.json", "r")
         cls.noUniqueSids = open("resources/noUniqueSids.json", "r")
+
+    def testFileNotInReadMode(self):
+        with self.assertRaises(Exception) as context:
+            isJsonFileCorrect(self.notReadMode)
+        self.assertTrue('file is not opened in read mode' in str(context.exception))
 
     def testNotJsonTypeFile(self):
         with self.assertRaises(Exception) as context:
@@ -162,6 +168,7 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.isNotJson.close()
+        cls.notReadMode.close()
 
         cls.noPolicyName.close()
         cls.noPolicyDocument.close()

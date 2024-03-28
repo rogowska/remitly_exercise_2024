@@ -7,6 +7,10 @@ def isJsonFileCorrect(jsonFile):
     sids = set()
     flag = True
     try:
+
+        if not jsonFile.readable():
+            raise Exception('file is not opened in read mode')
+
         # trying parsing json from a file
         jsonFile = json.load(jsonFile)
 
