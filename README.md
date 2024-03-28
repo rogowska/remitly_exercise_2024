@@ -34,6 +34,7 @@ Solution contains two files:
 * isJsonFileCorrect_tests_py
 
 isJsonFileCorrect.py contains a method checking wether the file passed to this method is a valid JSON file.
+It takes one parameter, file object which we can read from.
 
 File isJsonFileCorrect_tests_py contains all the unit tests written with the help of unittest python library.
 
@@ -68,6 +69,8 @@ File isJsonFileCorrect_tests_py contains all the unit tests written with the hel
 20. Checking if in the case of multiple statements, they all have unique Sids.
 
 Remaining tests check wether function returns correctly "True" or "False" in the case of the correctly formatted file.
+Resources directory contains all the files required to run test cases. Files can be changed in the setUpClass in the test file.
+
 ## Technologies
 
 * Python 3.10.11
@@ -92,3 +95,5 @@ Ran 25 tests in 0.007s
 
 OK
 ```
+
+You can also open the project in IDE like "PyCharm" or "Visual Studio Code" and run tests directly from there.
