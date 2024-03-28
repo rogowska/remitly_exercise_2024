@@ -5,6 +5,7 @@ from isJsonFileCorrect import isJsonFileCorrect
 class TestsIsJsonFileCorrect(unittest.TestCase):
 
     # opening all files on the beggining of tests and closing them on the end of them
+
     @classmethod
     def setUpClass(self):
         self.isNotJson = open("resources/isNotJson.txt", "r")
