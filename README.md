@@ -34,6 +34,7 @@ Solution contains two files:
 * isJsonFileCorrect_tests_py
 
 isJsonFileCorrect.py contains a method checking wether the file passed to this method is a valid JSON file.
+It takes one parameter, file object which we can read from.
 
 File isJsonFileCorrect_tests_py contains all the unit tests written with the help of unittest python library.
 
