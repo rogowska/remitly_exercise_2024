@@ -67,7 +67,7 @@ File isJsonFileCorrect_tests_py contains all the unit tests written with the hel
 19. Checking if Resource field has certain type.
 20. Checking if in the case of multiple statements, they all have unique Sids.
 
-Remaining tests check wether function returns correctly "True" or "False" in the case of the correctly formatted files.
+Remaining tests check wether function returns correctly "True" or "False" in the case of the correctly formatted file.
 ## Technologies
 
 * Python 3.10.11
