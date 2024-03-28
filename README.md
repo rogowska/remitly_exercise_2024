@@ -94,3 +94,5 @@ Ran 25 tests in 0.007s
 
 OK
 ```
+
+You can also open the project in IDE like "PyCharm" or "Visual tudio Code" and run tests directly from there.
