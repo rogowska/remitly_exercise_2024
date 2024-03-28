@@ -136,6 +136,11 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
             isJsonFileCorrect(self.resourceWrongType)
         self.assertTrue('field "Resource" has no string type in the 0 statement' in str(context.exception))
 
+    def testNoUniqueSidsAmongStatements(self):
+            with self.assertRaises(Exception) as context:
+                isJsonFileCorrect(self.noUniqueSids)
+            self.assertTrue('file has not unique sids' in str(context.exception))
+
     def testSingleAsteriskInResourceField(self):
         self.assertFalse(isJsonFileCorrect(self.singleAsterisk))
 
@@ -153,10 +158,6 @@ class TestsIsJsonFileCorrect(unittest.TestCase):
         self.assertFalse(isJsonFileCorrect(self.multipleStatementsOneAsterisk))
         self.assertFalse(isJsonFileCorrect(self.multipleStatementsManyAsterisks))
 
-    def testNoUniqueSidsAmongStatements(self):
-            with self.assertRaises(Exception) as context:
-                isJsonFileCorrect(self.noUniqueSids)
-            self.assertTrue('file has not unique sids' in str(context.exception))
 
     @classmethod
     def tearDownClass(cls):
