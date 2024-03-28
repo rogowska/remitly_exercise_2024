@@ -100,8 +100,8 @@ OK
 You can also open the project in IDE like "PyCharm" or "Visual Studio Code" and run tests directly from there.
 
 ## References
-[](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-role-policy.html)
-[](https://docs.aws.amazon.com/IAM/latest/APIReference/API_PolicyDetail.html)
-[](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policies-json)
-[](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html)
+[AWS::IAM::Role Policy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-role-policy.html)
+[PolicyDetail](https://docs.aws.amazon.com/IAM/latest/APIReference/API_PolicyDetail.html)
+[Policies and permissions in IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policies-json)
+[IAM JSON policy elements reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html)
 
