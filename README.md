@@ -50,19 +50,20 @@ File isJsonFileCorrect_tests_py contains all the unit tests written with the hel
 
 8. Checking if file has Version field.
 9. Checking if file has Statement field.
-10. Checking if Version field has certain type and format.
-11. Checking if Statement field has certain type.
+10. Checking if Version field has certain type.
+11. Checking if Version field has certain format.
+12. Checking if Statement field has certain type.
 
     Within Statement scope:
 
-12. Checking if there is at least one statement.
-13. Checking if Sid pattern is correct. 
-14. Checking if there is Effect field.
-15. Checking if Effect field has value equal to either "Allow" or "Deny".
-16. Checking if there are Action field.
-17. Checking if there is Resource field.
-18. Checking if Resource field has certain type.
-19. Checking if in the case of multiple statements, they all have unique Sids.
+13. Checking if there is at least one statement.
+14. Checking if Sid pattern is correct. 
+15. Checking if there is Effect field.
+16. Checking if Effect field has value equal to either "Allow" or "Deny".
+17. Checking if there are Action field.
+18. Checking if there is Resource field.
+19. Checking if Resource field has certain type.
+20. Checking if in the case of multiple statements, they all have unique Sids.
 
 Remaining tests check wether function returns correctly "True" or "False".
 ## Technologies
