@@ -40,33 +40,34 @@ File isJsonFileCorrect_tests_py contains all the unit tests written with the hel
 
 ### Covered tests cases are:
 
-1. Checking if the file parameter is JSON.
-2. Checking if the JSON file has PolicyName field.
-3. Checking if the JSON file has PolicyDocument field.
-4. Checking if PolicyName has a certain type.
-5. Checking if PolicyDocument has a certain type.
-6. Checking if PolicyName field has valid length.
-7. Checking if PolicyName has valid pattern.
+1. Checking if file is in the read mode.
+2. Checking if the file parameter is JSON.
+3. Checking if the JSON file has PolicyName field.
+4. Checking if the JSON file has PolicyDocument field.
+5. Checking if PolicyName has a certain type.
+6. Checking if PolicyDocument has a certain type.
+7. Checking if PolicyName field has valid length.
+8. Checking if PolicyName has valid pattern.
 
 
 #### Within PolicyDocument scope:
 
-8. Checking if file has Version field.
-9. Checking if file has Statement field.
-10. Checking if Version field has certain type.
-11. Checking if Version field has certain format.
-12. Checking if Statement field has certain type.
+9. Checking if file has Version field.
+10. Checking if file has Statement field.
+11. Checking if Version field has certain type.
+12. Checking if Version field has certain format.
+13. Checking if Statement field has certain type.
 
 #### Within Statement scope:
 
-13. Checking if there is at least one statement.
-14. Checking if Sid pattern is correct. 
-15. Checking if there is Effect field.
-16. Checking if Effect field has value equal to either "Allow" or "Deny".
-17. Checking if there are Action field.
-18. Checking if there is Resource field.
-19. Checking if Resource field has certain type.
-20. Checking if in the case of multiple statements, they all have unique Sids.
+14. Checking if there is at least one statement.
+15. Checking if Sid pattern is correct. 
+16. Checking if there is Effect field.
+17. Checking if Effect field has value equal to either "Allow" or "Deny".
+18. Checking if there are Action field.
+19. Checking if there is Resource field.
+20. Checking if Resource field has certain type.
+21. Checking if in the case of multiple statements, they all have unique Sids.
 
 Remaining tests check wether function returns correctly "True" or "False" in the case of the correctly formatted file.
 Resources directory contains all the files required to run test cases. Files can be changed in the setUpClass in the test file.
@@ -91,7 +92,7 @@ python isJsonFileCorrect_tests.py
 The output should show similar:
 
 ```
-Ran 25 tests in 0.007s
+Ran 26 tests in 0.007s
 
 OK
 ```
